@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="/static/icon.png" type="image/x-icon">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Anomaly Dashboard</h2>
+    <a href="/">Upload New</a>
+</div>
+
+<div class="card-container">
+    <div class="card">
+        <h3>Total Transactions</h3>
+        <p>{{ total }}</p>
+    </div>
+
+    <div class="card danger">
+        <h3>Fraudulent</h3>
+        <p>{{ fraud }}</p>
+    </div>
+
+    <div class="card success">
+        <h3>Safe</h3>
+        <p>{{ total - fraud }}</p>
+    </div>
+</div>
+
+<div class="chart-box">
+    <canvas id="fraudChart"></canvas>
+</div>
+
+<div class="table-container">
+    <h3>Detected Anomalies</h3>
+    {{ data | safe }}
+</div>
+
+<script>
+    const ctx = document.getElementById('fraudChart');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Fraud', 'Normal'],
+            datasets: [{
+                data: [{{ fraud }}, {{ total - fraud }}],
+                backgroundColor: ['#ef4444', '#22c55e']
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>

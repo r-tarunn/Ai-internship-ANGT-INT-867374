@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anomaly Detector</title>
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}">
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+
+<div class="hero">
+
+    <h1>🔍 Anomaly Detection System</h1>
+    <p>Upload your transaction data and detect fraudulent activity instantly.</p>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        
+        <label class="upload-box">
+            <input type="file" name="file" id="fileInput" required onchange="showFileName()">
+            <span id="fileLabel">📂 Choose CSV File</span>
+        </label>
+
+        <button type="submit">🚀 Analyze Data</button>
+    </form>
+
+</div>
+
+</body>
+
+<script>
+function showFileName() {
+    const input = document.getElementById("fileInput");
+    const label = document.getElementById("fileLabel");
+
+    if (input.files.length > 0) {
+        label.textContent = "✅ " + input.files[0].name;
+    }
+}
+</script>
+
+</html>
